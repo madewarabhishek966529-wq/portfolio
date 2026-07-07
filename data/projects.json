@@ -1,0 +1,90 @@
+[
+  {
+    "id": "mediconnect",
+    "title": "Mediconnect",
+    "tagline": "Doctor appointment booking with real-time availability",
+    "description": "A healthcare app for booking doctor appointments and call support based on live availability, with nearby hospital recommendations powered by location services.",
+    "tech": ["Flutter", "Supabase", "REST APIs", "Location Services"],
+    "category": "Mobile",
+    "github": "https://github.com/madewarabhishek966529-wq",
+    "demo": "",
+    "featured": true
+  },
+  {
+    "id": "study-with-ai",
+    "title": "Study With AI",
+    "tagline": "Turn any PDF into flashcards, quizzes, and MCQs",
+    "description": "An AI-powered study tool that converts PDF or raw text into flashcards, MCQs, and quizzes, complete with an auto-evaluation system for practice tests.",
+    "tech": ["Flutter", "Groq / OpenAI", "Riverpod", "Text Processing"],
+    "category": "AI",
+    "github": "https://github.com/madewarabhishek966529-wq",
+    "demo": "",
+    "featured": true
+  },
+  {
+    "id": "agro-ai",
+    "title": "Agro AI",
+    "tagline": "Plant disease detection from a photo",
+    "description": "Detects plant diseases from images and suggests treatments, integrating nearby store recommendations for the medicines needed to treat them.",
+    "tech": ["Flutter", "Computer Vision API", "Supabase", "Geolocation"],
+    "category": "AI",
+    "github": "https://github.com/madewarabhishek966529-wq",
+    "demo": "",
+    "featured": true
+  },
+  {
+    "id": "farmsense-ai",
+    "title": "FarmSense AI",
+    "tagline": "Crop disease detection for Google Solution Challenge (SDG 2)",
+    "description": "A Flutter app built for the Google Solution Challenge that uses Gemini Vision and Firebase to identify crop diseases and support farmers with actionable guidance.",
+    "tech": ["Flutter", "Gemini Vision", "Firebase"],
+    "category": "AI",
+    "github": "https://github.com/madewarabhishek966529-wq",
+    "demo": "",
+    "featured": false
+  },
+  {
+    "id": "caloriesense-ai",
+    "title": "CalorieSense AI",
+    "tagline": "Food nutrition tracking for Google Solution Challenge (SDG 3)",
+    "description": "A nutrition-tracking Flutter app built for the Google Solution Challenge, using the Groq API and Supabase to log meals and estimate nutritional content from photos.",
+    "tech": ["Flutter", "Groq API", "Supabase"],
+    "category": "AI",
+    "github": "https://github.com/madewarabhishek966529-wq",
+    "demo": "",
+    "featured": false
+  },
+  {
+    "id": "nutrilens-ai",
+    "title": "NutriLens AI",
+    "tagline": "Nutrition tracking with computer vision",
+    "description": "A full-stack nutrition tracker that reads meals from photos using Gemini Vision, with a FastAPI backend, React front end, and Supabase for storage and auth.",
+    "tech": ["FastAPI", "React", "Supabase", "Gemini Vision"],
+    "category": "Web",
+    "github": "https://github.com/madewarabhishek966529-wq",
+    "demo": "",
+    "featured": true
+  },
+  {
+    "id": "cinesense",
+    "title": "CineSense",
+    "tagline": "Movie recommendations with a Netflix-style UI",
+    "description": "A movie recommendation engine using TF-IDF and cosine similarity over a curated dataset, wrapped in a dark, Netflix-inspired React interface with a FastAPI backend.",
+    "tech": ["React", "FastAPI", "scikit-learn", "TF-IDF"],
+    "category": "Web",
+    "github": "https://github.com/madewarabhishek966529-wq",
+    "demo": "",
+    "featured": false
+  },
+  {
+    "id": "fake-news-detector",
+    "title": "AI Fake News Detection System",
+    "tagline": "Classifying news credibility in real time",
+    "description": "A full-stack app that classifies news articles as credible or misleading using scikit-learn, with a React front end, FastAPI backend, MongoDB, and JWT authentication.",
+    "tech": ["React", "FastAPI", "scikit-learn", "MongoDB", "JWT"],
+    "category": "Web",
+    "github": "https://github.com/madewarabhishek966529-wq",
+    "demo": "",
+    "featured": false
+  }
+]

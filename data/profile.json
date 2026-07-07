@@ -1,0 +1,18 @@
+{
+  "name": "Abhishek Madewar",
+  "title": "Flutter Developer & AI/ML Engineer",
+  "roles": [
+    "Flutter Developer",
+    "AI/ML Enthusiast",
+    "Full-Stack Builder",
+    "Cross-Platform Engineer"
+  ],
+  "location": "Nanded, Maharashtra, India",
+  "email": "madewarabhishek966529@gmail.com",
+  "phone": "+919665297294",
+  "bio": "B.Tech CSE graduate building AI-integrated applications across mobile, web, and backend. I turn ideas into deployable products — pairing Flutter and React front ends with FastAPI/Django backends and AI vision APIs like Gemini and Groq. Currently exploring my next full-time role while shipping side projects and competing in challenges like Google Solution Challenge.",
+  "shortBio": "I build AI-powered apps that ship — Flutter, React, FastAPI, and a habit of finishing what I start.",
+  "resumeFile": "assets/resume/Abhishek_Madewar_Resume.pdf",
+  "availability": "Open to opportunities",
+  "yearsBuilding": 3
+}

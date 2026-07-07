@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhishek Madewar — Flutter Developer & AI/ML Engineer</title>
+<meta name="description" content="Portfolio of Abhishek Madewar — Flutter developer and AI/ML enthusiast building full-stack, AI-integrated applications across mobile, web, and backend.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Abhishek Madewar — Flutter Developer & AI/ML Engineer">
+<meta property="og:description" content="Building AI-integrated apps across Flutter, React, and FastAPI.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/images/og-cover.png">
+<meta property="og:url" content="https://your-domain.vercel.app/">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Abhishek Madewar — Flutter Developer & AI/ML Engineer">
+<meta name="twitter:description" content="Building AI-integrated apps across Flutter, React, and FastAPI.">
+<meta name="twitter:image" content="assets/images/og-cover.png">
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ LOADING SCREEN ============ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-terminal">
+      <span class="loader-line" id="loaderLine">$ booting_portfolio --mode=production</span>
+      <span class="loader-cursor">▌</span>
+    </div>
+  </div>
+
+  <!-- ============ CUSTOM CURSOR ============ -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- ============ SCROLL PROGRESS BAR ============ -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- ============ ANIMATED BACKGROUND ============ -->
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar" id="navbar">
+    <nav class="nav-inner">
+      <a href="#hero" class="nav-logo">AM<span class="grad-text">.</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#education" class="nav-link">Education</a></li>
+        <li><a href="#contact" class="nav-link nav-cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy reveal">
+          <p class="mono-tag">// hello world</p>
+          <h1 class="hero-title">
+            <span id="heroName">Loading name…</span>
+          </h1>
+          <div class="hero-terminal">
+            <div class="terminal-bar">
+              <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+              <span class="terminal-title">role.js</span>
+            </div>
+            <div class="terminal-body">
+              <span class="terminal-prompt">const role =</span>
+              <span id="typedRole" class="typed-text"></span><span class="type-cursor">|</span>
+            </div>
+          </div>
+          <p class="hero-bio" id="heroBio">Fetching bio…</p>
+          <div class="hero-actions">
+            <a href="#" id="resumeBtn" class="btn btn-primary" download>
+              <span>Download Résumé</span>
+            </a>
+            <a href="#projects" class="btn btn-ghost">View Projects</a>
+          </div>
+          <div class="hero-socials" id="heroSocials"></div>
+        </div>
+        <div class="hero-visual reveal">
+          <div class="hero-card glass">
+            <div class="hero-card-glow"></div>
+            <pre class="hero-code"><code><span class="c-key">class</span> <span class="c-class">Developer</span> {
+  <span class="c-key">constructor</span>() {
+    <span class="c-prop">this</span>.stack = [
+      <span class="c-str">"Flutter"</span>, <span class="c-str">"React"</span>,
+      <span class="c-str">"FastAPI"</span>, <span class="c-str">"AI/ML"</span>
+    ];
+    <span class="c-prop">this</span>.status = <span class="c-str">"shipping"</span>;
+  }
+}</code></pre>
+          </div>
+          <div class="hero-stat-chip glass" id="statProjects">
+            <span class="stat-num" data-count="8">0</span>
+            <span class="stat-label">Projects Shipped</span>
+          </div>
+          <div class="hero-stat-chip glass hero-stat-chip-2" id="statYears">
+            <span class="stat-num" data-count="3">0</span>
+            <span class="stat-label">Years Building</span>
+          </div>
+        </div>
+      </div>
+      <a href="#about" class="scroll-cue" aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about">
+      <div class="container">
+        <p class="mono-tag reveal">// about</p>
+        <h2 class="section-title reveal">Who's <span class="grad-text">Behind the Code</span></h2>
+        <div class="about-grid">
+          <div class="about-text reveal" id="aboutText">
+            <p>Loading…</p>
+          </div>
+          <div class="about-meta glass reveal" id="aboutMeta"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section section-alt" id="skills">
+      <div class="container">
+        <p class="mono-tag reveal">// skills</p>
+        <h2 class="section-title reveal">Tools I <span class="grad-text">Reach For</span></h2>
+        <div class="skills-controls reveal">
+          <input type="text" id="skillSearch" class="search-input" placeholder="Search a skill (e.g. Flutter, FastAPI)…">
+          <div class="filter-chips" id="skillFilters"></div>
+        </div>
+        <div class="skills-grid" id="skillsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section" id="projects">
+      <div class="container">
+        <p class="mono-tag reveal">// projects</p>
+        <h2 class="section-title reveal">Things I've <span class="grad-text">Shipped</span></h2>
+        <div class="projects-controls reveal">
+          <input type="text" id="projectSearch" class="search-input" placeholder="Search projects…">
+          <div class="filter-chips" id="projectFilters"></div>
+        </div>
+        <div class="projects-grid" id="projectsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE ============ -->
+    <section class="section" id="experience">
+      <div class="container">
+        <p class="mono-tag reveal">// experience</p>
+        <h2 class="section-title reveal">Where I've <span class="grad-text">Worked</span></h2>
+        <div class="timeline" id="experienceTimeline"></div>
+      </div>
+    </section>
+
+    <!-- ============ EDUCATION ============ -->
+    <section class="section section-alt" id="education">
+      <div class="container">
+        <p class="mono-tag reveal">// education</p>
+        <h2 class="section-title reveal">Academic <span class="grad-text">Background</span></h2>
+        <div class="timeline" id="educationTimeline"></div>
+      </div>
+    </section>
+
+    <!-- ============ CERTIFICATES ============ -->
+    <section class="section" id="certificates">
+      <div class="container">
+        <p class="mono-tag reveal">// certificates</p>
+        <h2 class="section-title reveal">Certifications</h2>
+        <div class="cert-grid" id="certGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ ACHIEVEMENTS ============ -->
+    <section class="section section-alt" id="achievements">
+      <div class="container">
+        <p class="mono-tag reveal">// achievements</p>
+        <h2 class="section-title reveal">Milestones</h2>
+        <div class="achievements-grid" id="achievementsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section" id="contact">
+      <div class="container">
+        <p class="mono-tag reveal">// contact</p>
+        <h2 class="section-title reveal">Let's <span class="grad-text">Build Something</span></h2>
+        <div class="contact-grid">
+          <div class="contact-info reveal glass" id="contactInfo"></div>
+          <form class="contact-form glass reveal" id="contactForm" action="https://formsubmit.co/madewarabhishek966529@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New message from portfolio site">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="hidden" name="_template" value="table">
+
+            <div class="form-row">
+              <label for="fname">Name</label>
+              <input type="text" id="fname" name="Name" required minlength="2" placeholder="Your name">
+              <span class="form-error" data-for="fname"></span>
+            </div>
+            <div class="form-row">
+              <label for="femail">Email</label>
+              <input type="email" id="femail" name="Email" required placeholder="you@example.com">
+              <span class="form-error" data-for="femail"></span>
+            </div>
+            <div class="form-row">
+              <label for="fsubject">Subject</label>
+              <input type="text" id="fsubject" name="Subject" required minlength="3" placeholder="What's this about?">
+              <span class="form-error" data-for="fsubject"></span>
+            </div>
+            <div class="form-row">
+              <label for="fmessage">Message</label>
+              <textarea id="fmessage" name="Message" required minlength="10" rows="5" placeholder="Tell me a bit more…"></textarea>
+              <span class="form-error" data-for="fmessage"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-spinner" hidden></span>
+            </button>
+            <p class="form-status" id="formStatus" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="#hero" class="nav-logo">AM<span class="grad-text">.</span></a>
+      <p class="footer-note">Built with HTML, CSS & JavaScript — no frameworks. Deployed on Vercel.</p>
+      <div class="footer-socials" id="footerSocials"></div>
+      <p class="footer-copy" id="footerCopy"></p>
+    </div>
+  </footer>
+
+  <!-- ============ BACK TO TOP ============ -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>

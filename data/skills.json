@@ -1,0 +1,26 @@
+[
+  { "name": "Flutter", "category": "Mobile", "percentage": 92, "icon": "📱", "color": "#4FD1C5" },
+  { "name": "Dart", "category": "Mobile", "percentage": 88, "icon": "🎯", "color": "#4FD1C5" },
+  { "name": "Android (Java)", "category": "Mobile", "percentage": 75, "icon": "🤖", "color": "#4FD1C5" },
+
+  { "name": "React.js", "category": "Frontend", "percentage": 82, "icon": "⚛️", "color": "#7C5CFF" },
+  { "name": "JavaScript", "category": "Frontend", "percentage": 85, "icon": "🟨", "color": "#7C5CFF" },
+  { "name": "HTML5 / CSS3", "category": "Frontend", "percentage": 90, "icon": "🎨", "color": "#7C5CFF" },
+  { "name": "Tailwind CSS", "category": "Frontend", "percentage": 80, "icon": "💨", "color": "#7C5CFF" },
+
+  { "name": "FastAPI", "category": "Backend", "percentage": 85, "icon": "⚡", "color": "#00D4FF" },
+  { "name": "Django", "category": "Backend", "percentage": 75, "icon": "🐍", "color": "#00D4FF" },
+  { "name": "Flask", "category": "Backend", "percentage": 78, "icon": "🌶️", "color": "#00D4FF" },
+  { "name": "Python", "category": "Backend", "percentage": 88, "icon": "🐍", "color": "#00D4FF" },
+
+  { "name": "Firebase", "category": "Cloud & DB", "percentage": 85, "icon": "🔥", "color": "#FF7B54" },
+  { "name": "Supabase", "category": "Cloud & DB", "percentage": 82, "icon": "🗄️", "color": "#FF7B54" },
+  { "name": "PostgreSQL / MySQL", "category": "Cloud & DB", "percentage": 78, "icon": "🛢️", "color": "#FF7B54" },
+  { "name": "MongoDB", "category": "Cloud & DB", "percentage": 72, "icon": "🍃", "color": "#FF7B54" },
+  { "name": "AWS (EC2, S3, IAM)", "category": "Cloud & DB", "percentage": 65, "icon": "☁️", "color": "#FF7B54" },
+
+  { "name": "Gemini Vision API", "category": "AI/ML", "percentage": 85, "icon": "✨", "color": "#F4C95D" },
+  { "name": "Groq API", "category": "AI/ML", "percentage": 80, "icon": "🧠", "color": "#F4C95D" },
+
+  { "name": "Git & GitHub", "category": "Tools", "percentage": 90, "icon": "🔧", "color": "#8B95A6" }
+]
