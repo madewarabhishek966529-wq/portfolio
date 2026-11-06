@@ -34,7 +34,7 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/",
     // Direct in-page delivery options (100% free, NO external tabs, NO external apps):
     // OPTION 1 (Easiest — 10 seconds): Enter madewarabhishek966529@gmail.com on web3forms.com, get key, paste here
-    web3formsKey: "", // e.g. "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" from web3forms.com
+    web3formsKey: "6374b28b-3039-4d41-b2d8-c5ded3d09a4f", // Web3Forms Access Key for madewarabhishek966529@gmail.com
 
     // OPTION 2: EmailJS (Free 200 emails/mo) from emailjs.com
     emailjs: {
