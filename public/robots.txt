@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://curtisdesignr.me/sitemap.xml
-
+Sitemap: https://portfolio-abhishek-madewar.vercel.app/sitemap.xml

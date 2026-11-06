@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Copy, Check, Send, ArrowUpRight, Github, Linkedin, Phone, MessageSquare } from 'lucide-react';
+import { Mail, Copy, Check, Send, ArrowUpRight, Github, Linkedin, Phone, MessageSquare, AlertCircle } from 'lucide-react';
 import { siteConfig } from '../config/site';
 import { soundManager } from '../utils/sound';
 
@@ -8,13 +8,11 @@ export default function Contact() {
   const [formState, setFormState] = useState({
     name: '',
     email: '',
-    subject: '',
-    type: 'Flutter Mobile App',
+    type: 'Flutter Mobile Application',
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [activationNotice, setActivationNotice] = useState(false);
+  const [submittedChannel, setSubmittedChannel] = useState('');
   const [error, setError] = useState('');
 
   const handleCopyEmail = () => {
@@ -24,79 +22,76 @@ export default function Contact() {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    soundManager.playClick();
-
+  const validate = () => {
     if (!formState.name.trim() || !formState.email.trim() || !formState.message.trim()) {
-      setError('Please fill out all required fields.');
-      return;
+      setError('Please fill out your Name, Email, and Message.');
+      return false;
     }
-
     if (!formState.email.includes('@') || !formState.email.includes('.')) {
       setError('Please provide a valid email address.');
-      return;
+      return false;
     }
-
     setError('');
-    setIsSubmitting(true);
-    setActivationNotice(false);
-
-    try {
-      const response = await fetch(`https://formsubmit.co/ajax/${siteConfig.contact.email}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formState.name,
-          email: formState.email,
-          category: formState.type,
-          message: formState.message,
-          _subject: `[Portfolio Inquiry] ${formState.type} from ${formState.name}`,
-          _captcha: 'false',
-          _template: 'table',
-        }),
-      });
-
-      const data = await response.json().catch(() => ({}));
-
-      if (response.ok && (data.success === 'true' || data.success === true)) {
-        soundManager.playSuccess();
-        setSubmitted(true);
-      } else if (data.message && data.message.toLowerCase().includes('activate')) {
-        // FormSubmit requires a 1-time email activation click from the recipient
-        setActivationNotice(true);
-        soundManager.playSuccess();
-        setSubmitted(true);
-      } else {
-        // FormSubmit is offline or rate-limited
-        setError(
-          data.message ||
-            'Direct submission server is waiting for activation or busy. Use the 1-click WhatsApp or Gmail buttons below to send directly!'
-        );
-      }
-    } catch (err) {
-      console.warn('Direct send error:', err);
-      setError(
-        'Direct server response timed out. Please click "Send via WhatsApp" or "Open in Gmail Web" below to send without any apps!'
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    return true;
   };
 
-  const encodedWhatsAppMsg = encodeURIComponent(
-    `Hi Abhishek,\nName: ${formState.name || 'Visitor'}\nEmail: ${formState.email || 'Not specified'}\nCategory: ${formState.type}\nMessage: ${formState.message || 'I would like to connect!'}`
-  );
+  // 1. Direct Web Gmail (Opens in browser tab, NEVER opens desktop Outlook / Windows Mail app)
+  const handleSendViaGmail = (e) => {
+    if (e) e.preventDefault();
+    soundManager.playClick();
+    if (!validate()) return;
 
-  const encodedGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${siteConfig.contact.email}&su=${encodeURIComponent(`[Portfolio Inquiry] ${formState.type} from ${formState.name || 'Visitor'}`)}&body=${encodeURIComponent(formState.message || '')}`;
+    soundManager.playSuccess();
+    const subject = encodeURIComponent(`[Portfolio Inquiry] ${formState.type} from ${formState.name}`);
+    const body = encodeURIComponent(
+      `Hi Abhishek,\n\n${formState.message}\n\n---\nSender Details:\nName: ${formState.name}\nEmail: ${formState.email}\nProject Type: ${formState.type}`
+    );
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${siteConfig.contact.email}&su=${subject}&body=${body}`;
+    window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+
+    setSubmittedChannel('Gmail Web (Browser)');
+    setSubmitted(true);
+  };
+
+  // 2. Direct WhatsApp (Instant to Abhishek's phone +91 96652 97294)
+  const handleSendViaWhatsApp = (e) => {
+    if (e) e.preventDefault();
+    soundManager.playClick();
+    if (!validate()) return;
+
+    soundManager.playSuccess();
+    const waText = encodeURIComponent(
+      `Hi Abhishek,\n\nI saw your portfolio and would like to connect!\n\nName: ${formState.name}\nEmail: ${formState.email}\nProject Type: ${formState.type}\n\nMessage:\n${formState.message}`
+    );
+
+    const waUrl = `https://wa.me/919665297294?text=${waText}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+    setSubmittedChannel('WhatsApp');
+    setSubmitted(true);
+  };
+
+  // 3. Copy Full Inquiry Details to Clipboard
+  const handleCopyInquiry = () => {
+    soundManager.playClick();
+    if (!validate()) return;
+
+    const summary = `Recipient: ${siteConfig.contact.email}\nSender: ${formState.name} (${formState.email})\nType: ${formState.type}\nMessage: ${formState.message}`;
+    navigator.clipboard.writeText(summary);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
 
   const socialLinks = [
     { name: 'GitHub', url: siteConfig.contact.github, icon: Github, handle: 'madewarabhishek966529-wq' },
     { name: 'LinkedIn', url: siteConfig.contact.linkedin, icon: Linkedin, handle: 'Abhishek Madewar' },
-    { name: 'WhatsApp', url: `https://wa.me/919665297294?text=${encodeURIComponent('Hi Abhishek, I saw your portfolio and would like to connect!')}`, icon: MessageSquare, handle: '+91 96652 97294' },
+    {
+      name: 'WhatsApp',
+      url: `https://wa.me/919665297294?text=${encodeURIComponent('Hi Abhishek, I saw your portfolio and would like to connect!')}`,
+      icon: MessageSquare,
+      handle: '+91 96652 97294',
+    },
     { name: 'Direct Call', url: `tel:${siteConfig.contact.phone}`, icon: Phone, handle: siteConfig.contact.phoneDisplay },
   ];
 
@@ -186,7 +181,14 @@ export default function Contact() {
                   rel="noopener noreferrer"
                   className="btn-primary"
                   onClick={() => soundManager.playClick()}
-                  style={{ padding: '10px 18px', fontSize: '11px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                  style={{
+                    padding: '10px 18px',
+                    fontSize: '11px',
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
                 >
                   <Mail size={14} />
                   <span>Open Gmail in Browser</span>
@@ -198,7 +200,14 @@ export default function Contact() {
                   rel="noopener noreferrer"
                   className="btn-secondary"
                   onClick={() => soundManager.playClick()}
-                  style={{ padding: '10px 18px', fontSize: '11px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                  style={{
+                    padding: '10px 18px',
+                    fontSize: '11px',
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
                 >
                   <MessageSquare size={14} style={{ color: '#25D366' }} />
                   <span>Chat on WhatsApp</span>
@@ -243,9 +252,9 @@ export default function Contact() {
 
               <div
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                  gap: '12px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
                 }}
               >
                 {socialLinks.map((item) => {
@@ -256,7 +265,7 @@ export default function Contact() {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="card-editorial"
+                      className="spotlight-card border-beam clickable"
                       onClick={() => soundManager.playClick()}
                       onMouseEnter={() => soundManager.playHover()}
                       style={{
@@ -286,7 +295,7 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right Column: Transmission Form */}
+          {/* Right Column: Direct Transmission Form */}
           <div
             className="spotlight-card border-beam"
             style={{
@@ -311,13 +320,13 @@ export default function Contact() {
                 marginBottom: '24px',
               }}
             >
-              Direct form delivery to <strong>{siteConfig.contact.email}</strong>.
+              Select your preferred direct channel below — zero delay, zero external desktop software.
             </p>
 
             {submitted ? (
               <div
                 style={{
-                  padding: '32px 20px',
+                  padding: '32px 24px',
                   textAlign: 'center',
                   backgroundColor: 'rgba(0, 255, 136, 0.08)',
                   border: '1px solid rgba(0, 255, 136, 0.3)',
@@ -332,58 +341,61 @@ export default function Contact() {
                   className="font-display"
                   style={{ fontSize: '22px', color: '#fff', marginBottom: '8px' }}
                 >
-                  {activationNotice ? 'Form Awaiting 1-Time Activation' : 'Message Sent Directly!'}
+                  Message Prepared via {submittedChannel}!
                 </div>
-                {activationNotice ? (
-                  <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.6 }}>
-                    FormSubmit requires a <strong>one-time confirmation</strong>! Please check your Gmail (including Spam/Junk folder) for an email from FormSubmit and click <strong>Activate Form</strong>. Once activated, all messages will arrive directly in your inbox.
-                  </p>
-                ) : (
-                  <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
-                    Thank you! Your message has been sent directly to{' '}
-                    <strong style={{ color: '#fff' }}>{siteConfig.contact.email}</strong>. Abhishek has received your transmission and will reply shortly.
-                  </p>
-                )}
+                <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+                  Your inquiry to <strong style={{ color: '#fff' }}>{siteConfig.contact.email}</strong> was formatted and opened in a new browser tab ready to transmit directly to Abhishek.
+                </p>
 
                 <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                  <a
-                    href={`https://wa.me/919665297294?text=${encodedWhatsAppMsg}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary"
-                    style={{ fontSize: '11px', padding: '8px 16px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
-                  >
-                    <MessageSquare size={13} />
-                    <span>Also Send on WhatsApp</span>
-                  </a>
                   <button
                     type="button"
-                    className="btn-secondary"
+                    className="btn-primary"
                     onClick={() => {
                       setSubmitted(false);
-                      setActivationNotice(false);
+                      setFormState({
+                        name: '',
+                        email: '',
+                        type: 'Flutter Mobile Application',
+                        message: '',
+                      });
                     }}
-                    style={{ fontSize: '11px', padding: '8px 16px' }}
+                    style={{ fontSize: '11px', padding: '8px 18px' }}
                   >
-                    Send Another Message
+                    Send Another Note
                   </button>
+
+                  <a
+                    href={`https://wa.me/919665297294?text=${encodeURIComponent('Hi Abhishek, I also sent an inquiry through your portfolio website!')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary"
+                    style={{ fontSize: '11px', padding: '8px 18px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                  >
+                    <MessageSquare size={13} style={{ color: '#25D366' }} />
+                    <span>Ping on WhatsApp</span>
+                  </a>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              <form onSubmit={handleSendViaGmail} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                 {error && (
                   <div
                     style={{
-                      padding: '10px 14px',
+                      padding: '12px 14px',
                       backgroundColor: 'rgba(227, 43, 60, 0.15)',
                       border: '1px solid var(--accent)',
                       borderRadius: 'var(--radius-sm)',
                       color: '#fff',
                       fontSize: '12px',
                       fontFamily: 'var(--font-mono)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
                     }}
                   >
-                    {error}
+                    <AlertCircle size={15} style={{ color: 'var(--accent)', flexShrink: 0 }} />
+                    <span>{error}</span>
                   </div>
                 )}
 
@@ -527,74 +539,75 @@ export default function Contact() {
                   />
                 </div>
 
+                {/* Direct Delivery Action Buttons (100% Reliable, Zero Hangs) */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '6px' }}>
+                  <button
+                    type="button"
+                    onClick={handleSendViaGmail}
+                    className="btn-primary"
+                    style={{
+                      padding: '12px 14px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      fontSize: '12px',
+                    }}
+                  >
+                    <Mail size={14} />
+                    <span>Send via Gmail Web</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleSendViaWhatsApp}
+                    className="btn-secondary"
+                    style={{
+                      padding: '12px 14px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      fontSize: '12px',
+                      borderColor: '#25D366',
+                      color: '#25D366',
+                      backgroundColor: 'rgba(37, 211, 102, 0.08)',
+                    }}
+                  >
+                    <MessageSquare size={14} />
+                    <span>Send on WhatsApp</span>
+                  </button>
+                </div>
+
+                {/* Auxiliary Copy Action */}
                 <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn-primary"
+                  type="button"
+                  onClick={handleCopyInquiry}
+                  className="btn-secondary"
                   style={{
                     width: '100%',
-                    marginTop: '8px',
-                    opacity: isSubmitting ? 0.7 : 1,
-                    cursor: isSubmitting ? 'wait' : 'pointer',
-                  }}
-                >
-                  <Send size={14} className={isSubmitting ? 'animate-spin' : ''} />
-                  <span>{isSubmitting ? 'Sending Directly...' : 'Send Direct Message'}</span>
-                </button>
-
-                <div
-                  style={{
-                    display: 'flex',
+                    padding: '8px 12px',
+                    fontSize: '11px',
+                    color: 'var(--text-dim)',
+                    borderColor: 'rgba(255, 255, 255, 0.07)',
+                    display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '12px',
-                    marginTop: '6px',
-                    paddingTop: '12px',
-                    borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-                    flexWrap: 'wrap',
+                    gap: '6px',
                   }}
                 >
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-dim)' }}>
-                    Or reach out directly:
-                  </span>
-                  <a
-                    href={`https://wa.me/919665297294?text=${encodedWhatsAppMsg}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '11px',
-                      color: '#25D366',
-                      textDecoration: 'none',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      fontWeight: 600,
-                    }}
-                  >
-                    <MessageSquare size={12} />
-                    <span>WhatsApp</span>
-                  </a>
-                  <span style={{ color: 'var(--border)' }}>•</span>
-                  <a
-                    href={encodedGmailUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '11px',
-                      color: 'var(--accent)',
-                      textDecoration: 'none',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      fontWeight: 600,
-                    }}
-                  >
-                    <Mail size={12} />
-                    <span>Gmail Web</span>
-                  </a>
-                </div>
+                  {copied ? (
+                    <>
+                      <Check size={12} style={{ color: 'var(--success)' }} />
+                      <span style={{ color: 'var(--success)' }}>Inquiry Details Copied to Clipboard!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={12} />
+                      <span>Copy Full Message & Contact Details</span>
+                    </>
+                  )}
+                </button>
               </form>
             )}
           </div>
