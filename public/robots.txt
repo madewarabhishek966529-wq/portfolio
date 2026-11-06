@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://curtisdesignr.me/sitemap.xml
+
