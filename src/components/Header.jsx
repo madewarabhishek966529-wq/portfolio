@@ -242,15 +242,16 @@ export default function Header({ onOpenResume }) {
             <span>CV</span>
           </button>
 
-          {/* Contact Direct CTA - Desktop */}
+          {/* Contact Direct CTA - Let's Talk */}
           <a
-            href="#contact"
+            href={`mailto:${siteConfig.contact.email}?subject=${encodeURIComponent("Let's Work Together")}`}
             className="btn-primary desktop-cta"
             onClick={() => soundManager.playClick()}
             style={{
               padding: '8px 18px',
               fontSize: '11px',
               display: 'none',
+              textDecoration: 'none',
             }}
           >
             <span>Let's Talk</span>
@@ -359,11 +360,16 @@ export default function Header({ onOpenResume }) {
             </button>
 
             <a
-              href={`mailto:${siteConfig.contact.email}`}
+              href={`mailto:${siteConfig.contact.email}?subject=${encodeURIComponent("Let's Work Together")}`}
               className="btn-primary"
-              style={{ width: '100%', textAlign: 'center' }}
+              style={{ width: '100%', textAlign: 'center', justifyContent: 'center', textDecoration: 'none' }}
+              onClick={() => {
+                soundManager.playClick();
+                setMobileMenuOpen(false);
+              }}
             >
-              Send Direct Message
+              <span>Let's Talk</span>
+              <ArrowUpRight size={14} />
             </a>
           </div>
         </div>
@@ -371,12 +377,14 @@ export default function Header({ onOpenResume }) {
 
       {/* Responsive Inline CSS rules for Header */}
       <style>{`
+        @media (min-width: 540px) {
+          .desktop-cta {
+            display: inline-flex !important;
+          }
+        }
         @media (min-width: 900px) {
           .desktop-nav {
             display: flex !important;
-          }
-          .desktop-cta {
-            display: inline-flex !important;
           }
           .hidden-mobile {
             display: inline-flex !important;

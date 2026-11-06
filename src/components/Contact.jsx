@@ -222,21 +222,39 @@ export default function Contact() {
               </div>
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                <a
+                  href={`mailto:${siteConfig.contact.email}?subject=${encodeURIComponent("Let's Work Together")}`}
+                  className="btn-primary"
+                  onClick={() => soundManager.playClick()}
+                  style={{
+                    padding: '10px 18px',
+                    fontSize: '11px',
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                  }}
+                >
+                  <Mail size={14} />
+                  <span>Let's Talk</span>
+                  <ArrowUpRight size={13} />
+                </a>
+
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="btn-primary"
+                  className="btn-secondary"
                   style={{ padding: '10px 18px', fontSize: '11px' }}
                 >
                   {copied ? (
                     <>
                       <Check size={14} style={{ color: '#fff' }} />
-                      <span>Email Copied to Clipboard!</span>
+                      <span>Email Copied!</span>
                     </>
                   ) : (
                     <>
                       <Copy size={14} />
-                      <span>Copy Email Address</span>
+                      <span>Copy Email</span>
                     </>
                   )}
                 </button>
