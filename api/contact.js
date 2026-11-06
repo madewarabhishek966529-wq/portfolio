@@ -45,16 +45,20 @@ export default async function handler(req, res) {
 
       if (response.ok) {
         return res.status(200).json({ success: true, message: 'Message sent successfully via Resend' });
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        return res.status(502).json({ success: false, message: errorData.message || 'Resend delivery failed' });
       }
     }
 
-    // Default successful response
-    return res.status(200).json({
-      success: true,
-      message: 'Transmission received successfully.',
+    // No server-side dispatch provider configured
+    return res.status(503).json({
+      success: false,
+      message: 'Server-side email service (Resend) not configured in Vercel environment variables.',
     });
   } catch (error) {
     console.error('Error handling contact form:', error);
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 }
+

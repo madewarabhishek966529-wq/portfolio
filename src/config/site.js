@@ -32,12 +32,18 @@ export const siteConfig = {
     whatsapp: "+919665297294",
     github: "https://github.com/madewarabhishek966529-wq",
     linkedin: "https://www.linkedin.com/",
-    // Direct in-page delivery config (No Slapform, No external tabs, No external apps)
+    // Direct in-page delivery options (100% free, NO external tabs, NO external apps):
+    // OPTION 1 (Easiest — 10 seconds): Enter madewarabhishek966529@gmail.com on web3forms.com, get key, paste here
+    web3formsKey: "", // e.g. "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" from web3forms.com
+
+    // OPTION 2: EmailJS (Free 200 emails/mo) from emailjs.com
     emailjs: {
       serviceId: "", // e.g. "service_xxxx" from emailjs.com
       templateId: "", // e.g. "template_xxxx" from emailjs.com
       publicKey: "", // e.g. "user_xxxx" from emailjs.com
     },
+
+    // OPTION 3: Vercel serverless function with Resend API key (set RESEND_API_KEY in Vercel)
     apiEndpoint: "/api/contact",
     otherLinks: [],
   },

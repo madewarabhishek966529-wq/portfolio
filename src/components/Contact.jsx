@@ -42,7 +42,36 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      // 1. Try EmailJS if keys are configured
+      // 1. Try Web3Forms if access key is configured (100% in-page, zero tabs, zero apps)
+      if (siteConfig.contact.web3formsKey && siteConfig.contact.web3formsKey.trim()) {
+        const w3Res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            access_key: siteConfig.contact.web3formsKey.trim(),
+            name: formState.name,
+            email: formState.email,
+            subject: `[Portfolio Inquiry] ${formState.type} from ${formState.name}`,
+            from_name: formState.name,
+            category: formState.type,
+            message: formState.message,
+          }),
+        });
+
+        const w3Data = await w3Res.json().catch(() => ({}));
+        if (w3Res.ok && w3Data.success) {
+          soundManager.playSuccess();
+          setSubmitted(true);
+          return;
+        } else {
+          throw new Error(w3Data.message || 'Web3Forms failed to deliver email.');
+        }
+      }
+
+      // 2. Try EmailJS if keys are configured (100% in-page, zero tabs, zero apps)
       if (
         siteConfig.contact.emailjs?.serviceId &&
         siteConfig.contact.emailjs?.templateId &&
@@ -65,9 +94,9 @@ export default function Contact() {
         return;
       }
 
-      // 2. Try Vercel Serverless Function (/api/contact)
-      try {
-        const apiRes = await fetch(siteConfig.contact.apiEndpoint || '/api/contact', {
+      // 3. Try Vercel Serverless Function (/api/contact)
+      if (siteConfig.contact.apiEndpoint) {
+        const apiRes = await fetch(siteConfig.contact.apiEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -84,19 +113,18 @@ export default function Contact() {
           soundManager.playSuccess();
           setSubmitted(true);
           return;
+        } else if (apiRes.status !== 503 && apiRes.status !== 404) {
+          throw new Error(apiData.message || 'Server-side transmission failed.');
         }
-      } catch (apiErr) {
-        // Continue to fallback
       }
 
-      // 3. Fallback: Clean in-page delivery simulation
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      soundManager.playSuccess();
-      setSubmitted(true);
+      // If no delivery service key is active yet:
+      setError(
+        'Email service key pending! To deliver messages straight to madewarabhishek966529@gmail.com, enter your free Web3Forms or EmailJS key in src/config/site.js.'
+      );
     } catch (err) {
-      console.warn('In-page direct send notice:', err);
-      soundManager.playSuccess();
-      setSubmitted(true);
+      console.error('Contact transmission error:', err);
+      setError(err.message || 'Transmission failed. Please check your network or try direct channels.');
     } finally {
       setIsSubmitting(false);
     }
