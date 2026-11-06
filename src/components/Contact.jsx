@@ -41,7 +41,32 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      // 1. Try Web3Forms if access key is configured
+      // 1. Try Slapform if Form ID is configured
+      if (siteConfig.contact.slapformId) {
+        const sfRes = await fetch(`https://api.slapform.com/${siteConfig.contact.slapformId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            name: formState.name,
+            email: formState.email,
+            category: formState.type,
+            message: formState.message,
+            slap_replyto: formState.email,
+            slap_subject: `[Portfolio Inquiry] ${formState.type} from ${formState.name}`,
+          }),
+        });
+        const sfData = await sfRes.json().catch(() => ({}));
+        if (sfRes.ok || sfData.meta?.status === 'success') {
+          soundManager.playSuccess();
+          setSubmitted(true);
+          return;
+        }
+      }
+
+      // 2. Try Web3Forms if access key is configured
       if (siteConfig.contact.web3formsKey) {
         const w3Res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
