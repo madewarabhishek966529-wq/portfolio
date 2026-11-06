@@ -125,13 +125,13 @@ export default function Hero({ onOpenResume }) {
           </div>
 
           <h1
-            className="font-display"
             style={{
-              fontSize: 'clamp(52px, 11.5vw, 150px)',
-              lineHeight: 0.9,
-              letterSpacing: '-0.01em',
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(36px, 5.5vw, 68px)',
+              lineHeight: 1.1,
+              letterSpacing: '0.01em',
               color: 'var(--text)',
-              marginBottom: '16px',
+              marginBottom: '14px',
               textTransform: 'uppercase',
             }}
           >
@@ -140,16 +140,16 @@ export default function Hero({ onOpenResume }) {
 
           <div
             style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(24px, 4.5vw, 56px)',
+              fontFamily: 'var(--font-body)',
+              fontSize: 'clamp(18px, 2.2vw, 24px)',
               color: 'var(--text-muted)',
-              letterSpacing: '0.02em',
-              textTransform: 'uppercase',
-              lineHeight: 1.05,
-              maxWidth: '1000px',
+              letterSpacing: '-0.01em',
+              lineHeight: 1.45,
+              fontWeight: 500,
+              maxWidth: '820px',
             }}
           >
-            Building AI-integrated apps across mobile, web & backend
+            Building AI-integrated applications across mobile, web & backend
           </div>
         </div>
 

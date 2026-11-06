@@ -4,7 +4,8 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import InfiniteMarquee from './components/InfiniteMarquee';
 import ProjectGrid from './components/ProjectGrid';
-import BeforeAfter from './components/BeforeAfter';
+import ToolsIReachFor from './components/ToolsIReachFor';
+import GitHistory from './components/GitHistory';
 import About from './components/About';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
@@ -106,10 +107,14 @@ export default function App() {
         {/* 2026 Kinetic Infinite Text Marquee 01 */}
         <InfiniteMarquee items={marqueeKeywords} direction="left" speed={30} />
 
+        {/* Tools I Reach For (Interactive Skills Matrix from Image 1) */}
+        <ToolsIReachFor />
+
+        {/* Selected Projects */}
         <ProjectGrid />
 
-        {/* Interactive Before / After Architectural Evolution Comparator */}
-        <BeforeAfter />
+        {/* Live Git Repository History & 52-Week Contribution Matrix (from Image 2) */}
+        <GitHistory />
 
         <About />
 

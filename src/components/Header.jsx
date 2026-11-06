@@ -45,7 +45,9 @@ export default function Header({ onOpenResume }) {
   };
 
   const navLinks = [
+    { label: 'Skills', href: '#skills' },
     { label: 'Work', href: '#projects' },
+    { label: 'Git Activity', href: '#github-activity' },
     { label: 'About', href: '#about' },
     { label: 'Experience', href: '#experience' },
     { label: 'Contact', href: '#contact' },
