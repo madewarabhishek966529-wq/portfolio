@@ -32,9 +32,13 @@ export const siteConfig = {
     whatsapp: "+919665297294",
     github: "https://github.com/madewarabhishek966529-wq",
     linkedin: "https://www.linkedin.com/",
-    slapformId: "", // Slapform Form ID from your Slapform Dashboard
-    web3formsKey: "", // Optional Web3Forms Access Key from web3forms.com
-    formAction: "https://formsubmit.co/madewarabhishek966529@gmail.com",
+    // Direct in-page delivery config (No Slapform, No external tabs, No external apps)
+    emailjs: {
+      serviceId: "", // e.g. "service_xxxx" from emailjs.com
+      templateId: "", // e.g. "template_xxxx" from emailjs.com
+      publicKey: "", // e.g. "user_xxxx" from emailjs.com
+    },
+    apiEndpoint: "/api/contact",
     otherLinks: [],
   },
 
