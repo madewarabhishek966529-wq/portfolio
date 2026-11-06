@@ -32,6 +32,7 @@ export const siteConfig = {
     whatsapp: "+919665297294",
     github: "https://github.com/madewarabhishek966529-wq",
     linkedin: "https://www.linkedin.com/",
+    web3formsKey: "", // Optional Web3Forms Access Key from web3forms.com
     formAction: "https://formsubmit.co/madewarabhishek966529@gmail.com",
     otherLinks: [],
   },
